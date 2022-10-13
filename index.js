@@ -7,8 +7,6 @@ let btnRaizQuadr = document.getElementsByClassName("raiz")[0];
 let valor_salvo = null;
 let operacao_salva = null;
 let btnIgual = document.getElementsByClassName("igual")[0];
-
-
 let body = document.getElementsByTagName("body")[0];
 
 for(let botao of btnNumeros) {
@@ -58,22 +56,26 @@ function pressionou_tecla(event) {
         document.getElementById('numero9').click();
     } else if(event.key === ',') {
         document.getElementById('sinalVirg').click();
-    } else if(event.key === 'c' || event.key === 'C') {
+    } else if(event.key === "Escape") {
         document.getElementById('sinalC').click();
-    } else if(event.key === '=') {
+    } else if(event.key === "Enter") {
         document.getElementById('sinalIgual').click();
-    } else if(event.key === 'z') {
+    } else if(event.key === 'z' || event.key === 'Z') {
         document.getElementById('sinalRaiz').click();
     } 
 }
 
 function clique_virgula(event) {
-
+    if(isNaN(visor.innerHTML) === true) {
+        visor.innerHTML = ".";
+    } else if(isNaN(visor.innerHTML + ".") === false){
+        visor.innerHTML = visor.innerHTML + ".";
+    }
 }
 
 function clique_igual(event) {
     if(valor_salvo != null && operacao_salva != null && !isNaN(visor.innerHTML)) {
-        visor.innerHTML = calcula_operacao(valor_salvo, operacao_salva, Number(visor.innerHTML));
+        visor.innerHTML = calcula_operacao(valor_salvo, operacao_salva, Number(visor.innerHTML)).toFixed(9);
         valor_salvo = null;
         operacao_salva = null;
     }
@@ -84,7 +86,7 @@ function clique_numero(event) {
     if(isNaN(visor.innerHTML)) {
         visor.innerHTML = event.target.innerHTML;
     } else {
-        visor.innerHTML = visor.innerHTML + event.target.innerHTML;
+        visor.innerHTML = Number(visor.innerHTML + event.target.innerHTML);
     }
 }
 
